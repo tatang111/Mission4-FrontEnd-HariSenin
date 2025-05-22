@@ -5,6 +5,8 @@ import { UpdateMovie } from "../components/UpdateMovie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchMovies } from "../store/redux/MovieRedux.";
 
 export const Edit = () => {
   const [events, setEvents] = useState("");
@@ -15,7 +17,11 @@ export const Edit = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const passwordAdmin = import.meta.env.VITE_PASS_ADMIN;
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+      dispatch(fetchMovies());
+    }, [dispatch]);
+  
   const buttonClass =
     "px-6 py-3 md:px-12 bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg font-medium shadow-lg hover:from-purple-700 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 text-white focus:ring-blue-400 h-12 cursor-pointer text-sm md:text-base";
 
