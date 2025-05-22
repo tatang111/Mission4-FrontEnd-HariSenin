@@ -4,7 +4,6 @@ import { Profil } from "./pages/Profil";
 import { DaftarSaya } from "./pages/DaftarSaya";
 import { Series } from "./pages/Series";
 import { Film } from "./pages/Film";
-import { PopupProvider } from "./SharedContext";
 import {  WatchFilm } from "./pages/WatchFilm";
 import { WatchSeries } from "./pages/WatchSeries";
 import { Langganan } from "./pages/Langganan";
@@ -15,7 +14,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
-    <PopupProvider>
       <Routes>
         <Route path="/" element={<Daftar />} />
         <Route path="/masuk" element={<Masuk />} />
@@ -30,7 +28,6 @@ function App() {
         <Route path="/watchseries" element={<WatchSeries />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
-    </PopupProvider>
   );
 }
 

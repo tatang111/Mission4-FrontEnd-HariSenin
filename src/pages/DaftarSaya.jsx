@@ -1,26 +1,27 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies, setDetailClickingFilm } from "../store/redux/MovieRedux.";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
-import { NewEpisode } from "../components/NewEpisode";
 import { PotraitCard } from "../components/PotraitCard";
-import { TopTen } from "../components/TopTen";
-import { PopupContext } from "../SharedContext";
 import { PopupDetailFilm } from "../components/PopupDetailFilm";
 
 export const DaftarSaya = () => {
-  const { detailClickingFilm, setDetailClickingFilm, allMovies, loading } =
-    useContext(PopupContext);
+  const dispatch = useDispatch();
+  const { detailClickingFilm, allMovies, loading } = useSelector((state) => state.movie);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    try {
-      const getMovie = allMovies
-        .filter((movie) => movie.id > 10 && movie.id < 25)
-        .map((movie) => ({ ...movie, premium: false }));
-      setMovies(getMovie);
-    } catch (error) {
-      console.log(error);
+    if (allMovies.length === 0) {
+      dispatch(fetchMovies());
     }
+  }, [dispatch, allMovies.length]);
+
+  useEffect(() => {
+    const filteredMovies = allMovies
+      .filter((movie) => movie.id > 10 && movie.id < 25)
+      .map((movie) => ({ ...movie, premium: false }));
+    setMovies(filteredMovies);
   }, [allMovies]);
 
   if (loading) {
@@ -29,11 +30,7 @@ export const DaftarSaya = () => {
 
   return (
     <div>
-      <div
-        className={`bg-black text-white ${
-          detailClickingFilm ? "brightness-35" : ""
-        } `}
-      >
+      <div className={`bg-black text-white ${detailClickingFilm ? "brightness-35" : ""}`}>
         <Navbar />
         <main className="md:px-20 ml-4 my-[20px] md:my-[50px] flex flex-col gap-8">
           <h1 className="text-3xl font-[600]">Daftar Saya</h1>
@@ -45,9 +42,10 @@ export const DaftarSaya = () => {
         </main>
         <Footer />
       </div>
+
       {detailClickingFilm && (
-        <div className="absolute z-50 top-[100px] md:top-[100px]  left-1/2 -translate-x-1/2 flex  md:items-center justify-center">
-          <PopupDetailFilm onClose={() => setDetailClickingFilm(false)} />
+        <div className="absolute z-50 top-[100px] md:top-[100px] left-1/2 -translate-x-1/2 flex md:items-center justify-center">
+          <PopupDetailFilm onClose={() => dispatch(setDetailClickingFilm(false))} />
         </div>
       )}
     </div>

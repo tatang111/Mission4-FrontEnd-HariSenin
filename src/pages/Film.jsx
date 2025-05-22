@@ -8,11 +8,13 @@ import { RatingFilmCard } from "../components/RatingFilmCard";
 import { ReleaseFilmCard } from "../components/ReleaseFilmCard";
 import { SeriesPersembahan } from "../components/SeriesPersembahan";
 import { TrendingFilmCard } from "../components/TrendingFilmCard";
-import { PopupContext } from "../SharedContext";
 import { PopupDetailFilm } from "../components/PopupDetailFilm";
+import { useDispatch, useSelector } from "react-redux";
+import { setDetailClickingFilm } from "../store/redux/MovieRedux.";
 
 export const Film = () => {
-  const { detailClickingFilm, setDetailClickingFilm } = useContext(PopupContext);
+  const { detailClickingFilm } = useSelector(state => state.movie)
+  const dispatch = useDispatch()
 
   return (
     <main>
@@ -41,7 +43,7 @@ export const Film = () => {
       </div>
       {detailClickingFilm && (
         <article className="absolute z-50 top-[350px] md:top-[520px]  left-1/2 -translate-x-1/2 flex  md:items-center justify-center">
-          <PopupDetailFilm onClose={() => setDetailClickingFilm(false)} />
+          <PopupDetailFilm onClose={() => dispatch(setDetailClickingFilm(false))} />
         </article>
       )}
     </main>

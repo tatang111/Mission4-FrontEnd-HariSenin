@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { PaymentCodeGenerator } from "./PaymentCodeGenerator";
-import { PopupContext } from "../SharedContext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setVersiPembayaran } from "../store/redux/MovieRedux.";
 
 export const ShowPayment = () => {
   const [menit, setMenit] = useState(15);
@@ -15,8 +16,8 @@ export const ShowPayment = () => {
     return saved ? JSON.parse(saved) : null;
   });
   const [paymentCode, setPaymentCode] = useState("");
-  const {versiPembayaran, setVersiPembayaran} = useContext(PopupContext)
   const navigate = useNavigate()
+  const dispatch = useDispatch();
  
   useEffect(() => {
     setPaymentCode(PaymentCodeGenerator());
@@ -42,7 +43,7 @@ export const ShowPayment = () => {
       if (menit === 0 && detik === 0) {
         window.location.pathname = "/langganan";
         setInfoPayments("")
-        setVersiPembayaran("")
+        dispatch(setVersiPembayaran(""))
       }
     }, 1000);
   });

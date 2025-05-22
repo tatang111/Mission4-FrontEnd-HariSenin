@@ -1,17 +1,13 @@
-import { faCheck, faDownload } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ReasonSubscribe } from "./ReasonSubscribe";
 import { AllReasonSubscribe } from "./AllReasonSubscribe";
 import { LanggananCard } from "./LanggananCard";
-import { PopupContext } from "../SharedContext";
-import { useContext } from "react";
 import { ShowIndividual } from "./ShowIndividual";
 import { ShowBerdua } from "./ShowBerdua";
 import { ShowKeluarga } from "./ShowKeluarga";
 import { ShowPayment } from "./ShowPayment";
+import { useSelector } from "react-redux";
 
 export const MainLangganan = () => {
-  const { versiPembayaran, setVersiPembayaran } = useContext(PopupContext);
+  const { versiPembayaran} = useSelector(state => state.movie)
 
   return (
     <main className="bg-black text-white">

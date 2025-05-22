@@ -1,22 +1,25 @@
 import { Link } from "react-router-dom";
 import { PotraitCard } from "./PotraitCard";
-import { TopTen } from "./TopTen";
-import { useContext, useEffect, useState } from "react";
-import { PopupContext } from "../SharedContext";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies } from "../store/redux/MovieRedux."; // ✅ Capital M
 
 export const DaftarSayaMainProfil = () => {
-  const { allMovies, loading } = useContext(PopupContext);
+  const dispatch = useDispatch();
+  const { allMovies, loading } = useSelector((state) => state.movie);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    try {
-      const getMovie = allMovies
-        .filter((movie) => movie.id > 10 && movie.id < 16)
-        .map((movie) => ({ ...movie, premium: false }));
-      setMovies(getMovie);
-    } catch (error) {
-      console.log(error);
+    if (allMovies.length === 0) {
+      dispatch(fetchMovies());
     }
+  }, [dispatch, allMovies.length]);
+
+  useEffect(() => {
+    const getMovie = allMovies
+      .filter((movie) => movie.id > 10 && movie.id < 16)
+      .map((movie) => ({ ...movie, premium: false }));
+    setMovies(getMovie);
   }, [allMovies]);
 
   if (loading) {

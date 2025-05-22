@@ -5,17 +5,16 @@ import {
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import { PopupContext } from "../SharedContext";
-import { PopupDetailSeries } from "./PopupDetailSeries";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setDetailClickingFilm } from "../store/redux/MovieRedux.";
 
 export const LandscapeCardFilm = ({ movie }) => {
-  const { setDetailClickingFilm } = useContext(PopupContext);
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleClickDetail = () => {
-    setDetailClickingFilm(true);
+    dispatch(setDetailClickingFilm(true));
     const theMovie = {
       release: movie.release,
       title: movie.title,
@@ -33,7 +32,7 @@ export const LandscapeCardFilm = ({ movie }) => {
 
   const handleMobileClick = () => {
     if (window.innerWidth < 768) {
-      setDetailClickingFilm(true);
+      dispatch(setDetailClickingFilm(true));
       const theMovie = {
         release: movie.release,
         title: movie.title,

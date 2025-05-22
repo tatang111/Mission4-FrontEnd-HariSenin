@@ -1,14 +1,14 @@
-import { useContext } from "react";
 import { CardLayout } from "../components/CardLayout";
 import { Footer } from "../components/Footer";
 import { MainLayout } from "../components/MainLayout";
 import { Navbar } from "../components/Navbar";
-import { PopupContext } from "../SharedContext";
 import { PopupDetailFilm } from "../components/PopupDetailFilm";
+import { useDispatch, useSelector } from "react-redux";
+import { setDetailClickingFilm } from "../store/redux/MovieRedux.";
 
 export const MainPage = () => {
-  const { detailClickingFilm, setDetailClickingFilm } =
-    useContext(PopupContext);
+  const detailClickingFilm = useSelector(state => state.movie.detailClickingFilm)
+  const dispatch = useDispatch()
 
   return (
     <main>
@@ -34,7 +34,7 @@ export const MainPage = () => {
       </div>
       {detailClickingFilm && (
         <section className="absolute z-50 top-[350px] md:top-[520px]  left-1/2 -translate-x-1/2 flex  md:items-center justify-center">
-          <PopupDetailFilm onClose={() => setDetailClickingFilm(false)} />
+          <PopupDetailFilm onClose={() => dispatch(setDetailClickingFilm(false))} />
         </section>
       )}
     </main>

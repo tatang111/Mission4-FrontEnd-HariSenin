@@ -82,7 +82,7 @@ export const Navbar = ({ genre }) => {
           <div
             className={`absolute ${
               showPofile ? "flex" : "hidden"
-            } bg-[#181A1C] py-2 px-2 flex-col rounded w-36 -left-22 md:-left-20 top-10 transition-transform ease duration-300 z-10 group-hover:flex`}
+            } bg-[#181A1C] py-2 px-2 flex-col rounded w-36 -left-22 md:-left-20 top-8.5 transition-transform ease duration-300 z-10 group-hover:flex`}
           >
             <Link
               to="/profil"

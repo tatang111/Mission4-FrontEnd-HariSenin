@@ -1,10 +1,13 @@
 import { useContext, useRef, useState } from "react";
-import { PopupContext } from "../SharedContext";
 import { axiosInstance } from "../services/api";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setAllMovies } from "../store/redux/MovieRedux.";
 
 export const useFetchMovie = (onClick, movieId) => {
-  const { allMovies, setAllMovies } = useContext(PopupContext);
+  // const { allMovies, setAllMovies } = useContext(PopupContext);
+  const {allMovies} = useSelector(state => state.movie)
+  const dispatch = useDispatch();
   const [preview, setPreview] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [title, setTitle] = useState("");
@@ -120,7 +123,7 @@ export const useFetchMovie = (onClick, movieId) => {
       const response = await axiosInstance.post("/movie", movieData);
 
       if (response.status) {
-        setAllMovies((prevMovies) => [...prevMovies, response.data]);
+        dispatch(setAllMovies((prevMovies) => [...prevMovies, response.data]));
         setTimeout(() => {
           setIsCreate(false);
           onClick();

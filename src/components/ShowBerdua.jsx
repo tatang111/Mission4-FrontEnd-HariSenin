@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { LanggananCard } from "./LanggananCard";
-import { PopupContext } from "../SharedContext";
+import { setVersiPembayaran } from "../store/redux/MovieRedux.";
+import { useDispatch } from "react-redux";
 
 export const ShowBerdua = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [voucherCode, setVoucherCode] = useState("");
-  const { setVersiPembayaran } = useContext(PopupContext);
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     setSelectedOption(e.target.value);
@@ -13,8 +14,6 @@ export const ShowBerdua = () => {
 
   const handleVoucherSubmit = (e) => {
     e.preventDefault();
-    // Handle voucher code application logic here
-    console.log("Voucher code submitted:", voucherCode);
   };
 
   const handlePayment = () => {
@@ -23,7 +22,7 @@ export const ShowBerdua = () => {
       card: selectedOption,
       versi: "Berdua",
     };
-    setVersiPembayaran(selectedOption);
+    dispatch(setVersiPembayaran(selectedOption));
     localStorage.setItem("kreditcard", JSON.stringify(infoPayment));
     window.scrollTo({
       top: 0,

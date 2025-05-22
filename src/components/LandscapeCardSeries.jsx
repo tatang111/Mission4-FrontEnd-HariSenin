@@ -5,18 +5,17 @@ import {
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import { PopupContext } from "../SharedContext";
-import { PopupDetailSeries } from "./PopupDetailSeries";
 import { NewEpisodeSeries } from "./NewEpisodeSeries";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setDetailClickingSeries } from "../store/redux/MovieRedux.";
 
 export const LandscapeCardSeries = ({ movie }) => {
-  const { setDetailClickingSeries } = useContext(PopupContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClickDetailSeries = () => {
-    setDetailClickingSeries(true);
+    dispatch(setDetailClickingSeries(true));
     const theMovie = {
       release: movie.release,
       title: movie.title,
@@ -34,7 +33,7 @@ export const LandscapeCardSeries = ({ movie }) => {
 
   const handleMobileClick = () => {
     if (window.innerWidth < 768) {
-      setDetailClickingSeries(true);
+      dispatch(setDetailClickingSeries(true));
       const theMovie = {
         release: movie.release,
         title: movie.title,
@@ -52,7 +51,7 @@ export const LandscapeCardSeries = ({ movie }) => {
   };
 
   const handlePlaySeries = () => {
-    navigate("/watchseries")
+    navigate("/watchseries");
   };
 
   return (

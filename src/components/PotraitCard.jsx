@@ -6,27 +6,28 @@ import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import { PopupContext } from "../SharedContext";
 import { TopTen } from "./TopTen";
 import { NewEpisode } from "./NewEpisode";
 import { Premium } from "./Premium";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setDetailClickingFilm, setDetailClickingSeries } from "../store/redux/MovieRedux.";
 
 export const PotraitCard = ({ movie }) => {
-  const { setDetailClickingSeries, setDetailClickingFilm } =
-    useContext(PopupContext);
-    const navigate = useNavigate()
+  // const { setDetailClickingSeries, setDetailClickingFilm } =
+  //   useContext(PopupContext);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const getImagePath = () => {
-      if (movie?.imageUrl?.includes("i.ibb.co")) {
-        const result = movie.imageUrl.replace("i.ibb.co", "i.ibb.co.com");
-        return result;
-      } else if (movie?.imageUrl?.length < 15) {
-        return `/imgpotrait/${movie.imageUrl}`;
-      }
-      return movie.imageUrl;
-    };
+  const getImagePath = () => {
+    if (movie?.imageUrl?.includes("i.ibb.co")) {
+      const result = movie.imageUrl.replace("i.ibb.co", "i.ibb.co.com");
+      return result;
+    } else if (movie?.imageUrl?.length < 15) {
+      return `/imgpotrait/${movie.imageUrl}`;
+    }
+    return movie.imageUrl;
+  };
 
   const handleClickDetail = () => {
     const theMovie = {
@@ -42,9 +43,9 @@ export const PotraitCard = ({ movie }) => {
     };
     localStorage.setItem("movie", JSON.stringify(theMovie));
     if (window.location.hash.includes("/series")) {
-      setDetailClickingSeries(true);
+      dispatch(setDetailClickingSeries(true));
     } else {
-      setDetailClickingFilm(true);
+      dispatch(setDetailClickingFilm(true));
     }
     setTimeout(() => {
       const popup = document.querySelector(".popup-container");
@@ -69,18 +70,18 @@ export const PotraitCard = ({ movie }) => {
       };
       localStorage.setItem("movie", JSON.stringify(theMovie));
       if (window.location.hash.includes("/series")) {
-        setDetailClickingSeries(true);
+        dispatch(setDetailClickingSeries(true));
       } else {
-        setDetailClickingFilm(true);
+        dispatch(setDetailClickingFilm(true));
       }
     }
   };
 
   const handleWatch = () => {
     if (window.location.hash.includes("/series")) {
-      navigate("/watchseries")
+      navigate("/watchseries");
     } else {
-      navigate("/watchfilm")
+      navigate("/watchfilm");
     }
   };
 

@@ -1,12 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { PopupContext } from "../SharedContext";
-import { MovieToDelete } from "./MovieToDelete";
-import { axiosInstance } from "../services/api";
 import { MovieToUpdate } from "./MovieToUpdate";
 import { ChangeMovieData } from "./ChangeMovieData";
+import { useSelector } from "react-redux";
 
 export const UpdateMovie = ({ onClick }) => {
-  const { allMovies, setAllMovies } = useContext(PopupContext);
+  const { allMovies } = useSelector(state => state.movie)
   const [movies, setMovies] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [movieId, setMovieId] = useState(0);

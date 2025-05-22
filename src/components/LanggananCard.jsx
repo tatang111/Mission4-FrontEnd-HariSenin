@@ -1,13 +1,13 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import { PopupContext } from "../SharedContext";
+import { useDispatch } from "react-redux";
+import { setVersiPembayaran } from "../store/redux/MovieRedux.";
 
 export const LanggananCard = ({versi, price, akun, kualitas}) => {
-    const {versiPembayaran, setVersiPembayaran} = useContext(PopupContext);
+  const dispatch = useDispatch()
 
     const handlePembayaran = () => {
-        setVersiPembayaran(versi)
+        dispatch(setVersiPembayaran(versi))
         window.scrollTo({
           top: 0,
           behavior: "smooth"

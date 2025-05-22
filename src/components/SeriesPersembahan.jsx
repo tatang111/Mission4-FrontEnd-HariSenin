@@ -1,25 +1,28 @@
 import { ArrowScrollX } from "./ArrowScrollX";
 import { PotraitCard } from "./PotraitCard";
-import { useGetMovie } from "../hooks/useGetMovie";
-import { useContext, useEffect, useRef, useState } from "react";
-import { PopupContext } from "../SharedContext";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies } from "../store/redux/MovieRedux.";
 
 export const SeriesPersembahan = () => {
-  const { allMovies, loading } = useContext(PopupContext);
+  const dispatch = useDispatch();
+  const { allMovies, loading } = useSelector((state) => state.movie);
   const [movies, setMovies] = useState([]);
   const scrollContainerRef = useRef(null);
 
   useEffect(() => {
-    try {
-      const getMovie = allMovies
-        .filter(
-          (movie) => movie.premium === true && (movie.id < 33 || movie.id > 65)
-        )
-        .map((movie) => ({ ...movie, top_ten: false }));
-      setMovies(getMovie);
-    } catch (error) {
-      console.log(error);
+    if (allMovies.length === 0) {
+      dispatch(fetchMovies());
     }
+  }, [dispatch, allMovies.length]);
+
+  useEffect(() => {
+    const filteredMovies = allMovies
+      .filter(
+        (movie) => movie.premium === true && (movie.id < 33 || movie.id > 65)
+      )
+      .map((movie) => ({ ...movie, top_ten: false }));
+    setMovies(filteredMovies);
   }, [allMovies]);
 
   if (loading) {
@@ -28,9 +31,7 @@ export const SeriesPersembahan = () => {
 
   return (
     <div className="top-film flex flex-col gap-4 md:gap-8 relative">
-      <h1 className="text-2xl md:text-5xl font-[600]">
-        Series Persembahan Chill
-      </h1>
+      <h1 className="text-2xl md:text-5xl font-[600]">Series Persembahan Chill</h1>
       <div className="relative">
         <ArrowScrollX containerRef={scrollContainerRef} />
         <div

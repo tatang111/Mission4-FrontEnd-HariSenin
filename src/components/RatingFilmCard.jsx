@@ -1,23 +1,22 @@
+import { fetchMovies } from "../store/redux/MovieRedux.";
 import { ArrowScrollX } from "./ArrowScrollX";
 import { PotraitCard } from "./PotraitCard";
-import { useContext, useEffect, useRef, useState } from "react";
-import { PopupContext } from "../SharedContext";
+import { useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 export const RatingFilmCard = () => {
-  const { allMovies, loading } = useContext(PopupContext);
-  const [movies, setMovies] = useState([]);
+  const dispatch = useDispatch();
+  const { allMovies, loading } = useSelector((state) => state.movie); // adjust if reducer is named differently
   const scrollContainerRef = useRef(null);
 
   useEffect(() => {
-    try {
-      const getMovie = allMovies.filter(
-        (movie) => movie?.category1 === "top-rating" && (movie.id < 33 || movie.id > 65)
-      ); 
-      setMovies(getMovie);
-    } catch (error) {
-      console.log(error)
-    }
-  }, [allMovies]);
+    dispatch(fetchMovies());
+  }, [dispatch]);
+
+  const topRatedMovies = allMovies.filter(
+    (movie) =>
+      movie?.category1 === "top-rating" && (movie.id < 33 || movie.id > 65)
+  );
 
   if (loading) {
     return <div>Loading...</div>;
@@ -34,7 +33,7 @@ export const RatingFilmCard = () => {
           ref={scrollContainerRef}
           className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide"
         >
-          {movies.map((movie) => (
+          {topRatedMovies.map((movie) => (
             <PotraitCard key={movie.id} movie={movie} />
           ))}
         </div>

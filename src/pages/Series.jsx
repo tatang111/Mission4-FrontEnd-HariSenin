@@ -1,5 +1,3 @@
-import { useContext, useState } from "react";
-import { ContinueFilmCard } from "../components/ContinueFilmCard";
 import { ContinueSeriesCard } from "../components/ContinueSeriesCard";
 import { Footer } from "../components/Footer";
 import { MainLayout } from "../components/MainLayout";
@@ -8,12 +6,14 @@ import { RatingFilmCard } from "../components/RatingFilmCard";
 import { ReleaseFilmCard } from "../components/ReleaseFilmCard";
 import { SeriesPersembahan } from "../components/SeriesPersembahan";
 import { TrendingFilmCard } from "../components/TrendingFilmCard";
-import { PopupContext } from "../SharedContext";
 import { PopupDetailSeries } from "../components/PopupDetailSeries";
+import { useDispatch, useSelector } from "react-redux";
+import { setDetailClickingSeries } from "../store/redux/MovieRedux.";
 
 export const Series = () => {
-  const { detailClickingSeries, setDetailClickingSeries } = useContext(PopupContext);
-
+  const { detailClickingSeries } = useSelector(state => state.movie);
+  const dispatch = useDispatch()
+  
   return (
     <main>
       <section
@@ -41,7 +41,7 @@ export const Series = () => {
       </section>
       {detailClickingSeries && (
         <article className="absolute z-50 top-[350px] md:top-[520px]  left-1/2 -translate-x-1/2 flex  md:items-center justify-center">
-          <PopupDetailSeries onClose={() => setDetailClickingSeries(false)} />
+          <PopupDetailSeries onClose={() => dispatch(setDetailClickingSeries(false))} />
         </article>
       )}
     </main>

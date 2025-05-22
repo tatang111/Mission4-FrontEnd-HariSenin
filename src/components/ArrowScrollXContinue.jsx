@@ -1,10 +1,9 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import { PopupContext } from "../SharedContext";
+import { useSelector } from "react-redux";
 
 export const ArrowScrollXContinue = ({ containerRef }) => {
-  const { detailClickingSeries, detailClickingFilm } = useContext(PopupContext);
+  const { detailClickingSeries, detailClickingFilm } = useSelector(state => state.movie)
 
   const handleScrollRight = () => {
     if (containerRef.current && !detailClickingSeries && !detailClickingFilm ) {

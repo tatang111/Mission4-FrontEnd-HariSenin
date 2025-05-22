@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { LanggananCard } from "./LanggananCard";
-import { PopupContext } from "../SharedContext";
+import { useDispatch } from "react-redux";
+import { setVersiPembayaran } from "../store/redux/MovieRedux.";
 
 export const ShowIndividual = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [voucherCode, setVoucherCode] = useState("");
-  const {setVersiPembayaran} = useContext(PopupContext)
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     setSelectedOption(e.target.value);
@@ -13,7 +14,6 @@ export const ShowIndividual = () => {
 
   const handleVoucherSubmit = (e) => {
     e.preventDefault();
-    console.log("Voucher code submitted:", voucherCode);
   };
 
   const handlePayment = () => {
@@ -22,7 +22,7 @@ export const ShowIndividual = () => {
       card: selectedOption,
       versi: "Individual"
     }
-    setVersiPembayaran(selectedOption)
+    dispatch(setVersiPembayaran(selectedOption))
     localStorage.setItem("kreditcard", JSON.stringify(infoPayment))
     window.scrollTo({
       top: 0,

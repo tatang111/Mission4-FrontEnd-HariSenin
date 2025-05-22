@@ -1,11 +1,13 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { PopupContext } from "../SharedContext";
+import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { MovieToDelete } from "./MovieToDelete";
 import { axiosInstance } from "../services/api";
-import axios from "axios";
+import { setAllMovies } from "../store/redux/MovieRedux.";
 
 export const DeleteMovie = ({ onClick }) => {
-  const { allMovies, setAllMovies } = useContext(PopupContext);
+  const dispatch = useDispatch();
+  const allMovies = useSelector((state) => state.movie.allMovies);
+  
   const [movies, setMovies] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [movieData, setMovieData] = useState({});
@@ -40,7 +42,7 @@ export const DeleteMovie = ({ onClick }) => {
       if (response.status === 200) {
         const filtered = movies.filter((movie) => movie.id !== movieData.id);
         setMovies(filtered);
-        setAllMovies(filtered);
+        dispatch(setAllMovies(filtered)); 
         setTimeout(() => {
           setSuccessDelete(false);
         }, 2000);
