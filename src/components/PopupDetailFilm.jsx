@@ -34,7 +34,6 @@ export const PopupDetailFilm = ({ onClose }) => {
   }, [onClose]);
 
   const getImagePath = () => {
-    console.log(theMovie)
     if (theMovie?.src?.includes("i.ibb.co")) {
       const result = theMovie.src.replace("i.ibb.co", "i.ibb.co.com");
       return result;
