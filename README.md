@@ -1,12 +1,36 @@
-# React + Vite
+# 🎬 Chill Cinema – Frontend Movie Showcase App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Chill Cinema adalah aplikasi web sederhana berbasis **React.js** yang menampilkan daftar film dari API. Dibangun untuk tujuan pembelajaran dan portofolio, proyek ini menekankan penggunaan komponen modular, pengambilan data dari API (mock), serta UI yang bersih dan responsif.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## Expanding the ESLint configuration
+🔗 [Lihat di Vercel](https://chill-cinema-fe3-showcases.vercel.app/)
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+- **React.js** – Library utama untuk membangun UI
+- **React Router** – Navigasi antar halaman
+- **Axios** – Untuk pengambilan data dari API
+- **Mock API** – Untuk menyimulasikan data film
+- **CSS / Tailwind CSS** – Untuk styling antarmuka 
+
+---
+
+## 📂 Struktur Proyek
+
+```bash
+Chill-Cinema-Fe3-Showcases/
+├── public/               # Static files
+├── src/
+│   ├── components/       # Komponen UI (navbar, card, dll)
+│   ├── pages/            # Halaman utama & detail
+│   ├── services/         # API request logic
+│   ├── styles/           # File CSS atau styling
+│   └── App.jsx           # Root komponen utama
+├── .gitignore
+├── package.json
+└── README.md
